@@ -1,0 +1,53 @@
+# Ignore node_modules directory for Node.js dependencies
+/node_modules
+
+# Ignore build artifacts
+/build
+/dist
+/.vscode
+/.idea
+
+# Ignore logs
+/logs
+
+# Ignore compiled Java classes
+/target
+
+# Ignore IDE files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Maven build information
+*.iml
+*.jar
+*.war
+*.ear
+
+# Ignore Eclipse files
+.classpath
+.project
+.settings/
+
+# Ignore IntelliJ IDEA files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Ignore Spring Boot log files
+*.log
+
+# Ignore temporary files
+*.tmp
+
+# Ignore package-lock.json for npm
+package-lock.json
+
+# Ignore yarn lockfile
+yarn.lock
