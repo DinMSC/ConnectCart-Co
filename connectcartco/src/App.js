@@ -9,9 +9,7 @@ function App() {
                     <Route path='/page1' element={<DummyPage />} />
                     <Route
                         path='/'
-                        element={
-                            <div className='text-4xl text-red-500'>HI</div>
-                        }
+                        element={<div className='text-4xl'>HI</div>}
                     />
                     <Route
                         path='*'
