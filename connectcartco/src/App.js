@@ -15,7 +15,7 @@ function App() {
                         path='*'
                         element={
                             <div className='text-4xl text-red-500'>
-                                Oops Page not found :(
+                                Ooops Page not found :(
                             </div>
                         }
                     />
