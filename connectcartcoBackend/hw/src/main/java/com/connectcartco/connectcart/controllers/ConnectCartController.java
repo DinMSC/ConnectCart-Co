@@ -9,7 +9,7 @@ public class ConnectCartController {
     
     @GetMapping("/api/connectcart")
     public String getMethodName() {
-        return "Hello from ConnectCart!";
+        return "Hello from ConnectCart Co.!";
     }
     
 }
