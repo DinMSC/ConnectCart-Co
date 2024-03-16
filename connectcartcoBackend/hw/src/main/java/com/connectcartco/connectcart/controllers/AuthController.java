@@ -41,20 +41,20 @@ public class AuthController {
         return authService.logoutUser();
     }
 
-    @GetMapping("/user")
-    public User getUser() {
-        return authService.getUser();
-    }
+    // @GetMapping("/user")
+    // public User getUser() {
+    //     return authService.getUser();
+    // }
 
     @GetMapping("/users")
     public List<User> getUsers() {
         return authService.getUsers();
     }
 
-    @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return authService.getUserById(id);
-    }
+    // @GetMapping("/user/{id}")
+    // public User getUserById(@PathVariable Long id) {
+    //     return authService.getUserById(id);
+    // }
 
     @GetMapping("/user/{id}/delete")
     public String deleteUserById(@PathVariable Long id) {
