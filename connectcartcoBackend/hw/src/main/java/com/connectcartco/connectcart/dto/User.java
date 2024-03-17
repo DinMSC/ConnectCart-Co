@@ -18,7 +18,6 @@ public class User {
     private String email;
     private String phone;
     private LocalDateTime created;
-    
 
 
     public User(String username, String password, String email, String phone) {
