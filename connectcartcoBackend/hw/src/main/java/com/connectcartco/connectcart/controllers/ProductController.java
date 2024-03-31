@@ -23,6 +23,21 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
+    @PostMapping("/products/cart/add/{productId}")
+    public List<Product> addToCart(@PathVariable String productId) {
+        return productService.addToCart(productId);
+    }
+
+    @PostMapping("/products/cart/remove/{productId}")
+    public List<Product> removeFromCart(@PathVariable String productId) {
+        return productService.removeFromCart(productId);
+    }
+
+    @PostMapping("/products/cart/empty/{productId}")
+    public List<Product> emptyCart(@PathVariable String productId) {
+        return productService.emptyCart(productId);
+    }
+
     @DeleteMapping("/products/product/{id}")
     public String deleteProduct(@PathVariable String id) {
         productService.delete(id);

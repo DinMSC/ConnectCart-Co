@@ -1,15 +1,21 @@
 package com.connectcartco.connectcart.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import lombok.Data;
 
 
-
-
-@Document
 @Data
+@Builder
+@Getter
+@Setter
+@Document
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     private String id;
@@ -18,14 +24,5 @@ public class User {
     private String email;
     private String phone;
     private LocalDateTime created;
-
-
-    public User(String username, String password, String email, String phone) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.created = LocalDateTime.now(); 
-    }
-
+    private List<Product> cart = new ArrayList<Product>();
 }
