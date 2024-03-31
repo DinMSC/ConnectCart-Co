@@ -33,9 +33,9 @@ public class ProductController {
         return productService.removeFromCart(productId);
     }
 
-    @PostMapping("/products/cart/empty/{productId}")
-    public List<Product> emptyCart(@PathVariable String productId) {
-        return productService.emptyCart(productId);
+    @PostMapping("/products/cart/empty")
+    public List<Product> emptyCart() {
+        return productService.emptyCart();
     }
 
     @DeleteMapping("/products/product/{id}")

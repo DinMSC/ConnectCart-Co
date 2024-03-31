@@ -50,22 +50,25 @@ public class ProductService {
     public List<Product> addToCart(String id) {
         Product product= productRepository.findById(id).orElseThrow(
                 ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-        User user= userRepository.findById("65f5b6243484a67f0af97529").orElseThrow();
+        User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
         user.getCart().add(product);
+        userRepository.save(user);
         return user.getCart();
      }
 
      public List<Product> removeFromCart(String id){
          Product product= productRepository.findById(id).orElseThrow(
                  ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-         User user= userRepository.findById("65f5b6243484a67f0af97529").orElseThrow();
+         User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
          user.getCart().remove(product);
+         userRepository.save(user);
          return user.getCart();
      }
 
-     public List<Product> emptyCart(String id){
-         User user= userRepository.findById("65f5b6243484a67f0af97529").orElseThrow();
+     public List<Product> emptyCart(){
+         User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
          user.setCart(new ArrayList<>());
+         userRepository.save(user);
          return user.getCart();
      }
 }
