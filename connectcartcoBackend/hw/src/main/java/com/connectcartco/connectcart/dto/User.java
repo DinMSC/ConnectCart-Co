@@ -10,12 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Data
-@Builder
 @Getter
 @Setter
 @Document
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class User {
     @Id
     private String id;
