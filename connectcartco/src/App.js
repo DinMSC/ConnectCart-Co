@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DummyPage from './pages/DummyPage';
 import Menu from './components/Menu';
 import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                         element={<div className='text-4xl'>HI</div>}
                     />
                     <Route path='/register' element={<Register />} />
+                    <Route path='/login' element={<Login />} />
                     <Route
                         path='*'
                         element={

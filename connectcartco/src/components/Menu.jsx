@@ -49,7 +49,7 @@ const Menu = () => {
                 <li>
                     <a
                         className='text-white opacity-70 hover:opacity-100 duration-300'
-                        href='/signup'
+                        href='/register'
                     >
                         Sign up
                     </a>
