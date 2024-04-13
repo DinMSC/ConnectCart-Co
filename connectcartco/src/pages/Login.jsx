@@ -59,6 +59,12 @@ const Login = () => {
                 >
                     Login
                 </button>
+                <div className='text-sm'>
+                    Forgot Password?{' '}
+                    <a className='text-blue-500' href='/forgotpassword'>
+                        Click here!
+                    </a>
+                </div>
             </form>
         </div>
     );
