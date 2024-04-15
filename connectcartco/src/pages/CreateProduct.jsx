@@ -3,10 +3,12 @@ import Input from '../components/Input';
 import { useContext, useState } from 'react';
 import { ProductContext } from '../context/ProuductContext';
 import ProductCard from '../components/ProductCard';
+import { v4 as uuidv4 } from 'uuid';
 
 const CreateProduct = () => {
     const { products } = useContext(ProductContext);
     const [newProduct, setNewProduct] = useState({
+        id: '',
         name: '',
         price: '',
         description: '',
@@ -17,8 +19,9 @@ const CreateProduct = () => {
     const handleCreateProduct = async (e) => {
         e.preventDefault();
         try {
-            await createProduct(newProduct);
+            await createProduct({ ...newProduct, id: uuidv4() });
             setNewProduct({
+                id: '',
                 name: '',
                 price: '',
                 description: '',
@@ -86,6 +89,7 @@ const CreateProduct = () => {
                 {products.map((product, index) => (
                     <ProductCard
                         key={index}
+                        id={product.id}
                         name={product.name}
                         price={product.price}
                         description={product.description}
