@@ -12,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -25,17 +26,18 @@ public class AuthController {
         return authService.registerUser(user);
     }
 
+    
     @PostMapping("/authenticate")
-    public AuthenticationResponse authenticateUser(@RequestBody AuthenticationRequest user) {
-
-        return authService.authenticateUser(user);
+    public AuthenticationResponse authenticateUser(@RequestParam String username, @RequestParam String password) {
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(username, password);
+        return authService.authenticateUser(authenticationRequest);
     }
 
 
-    @PostMapping("/login")
-    public String loginUser(@RequestBody UserEntity user) {
-        return authService.loginUser(user);
-    }
+    // @PostMapping("/login")
+    // public String loginUser(@RequestBody UserEntity user) {
+    //     return authService.loginUser(user);
+    // }
 
     @GetMapping("/logout")
     public String logoutUser() {

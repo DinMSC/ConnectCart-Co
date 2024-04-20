@@ -2,19 +2,24 @@ import { useFormik } from 'formik';
 import LoginSchema from '../helpers/formValidation';
 import axios from 'axios';
 import Input from '../components/Input';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
-            email: '',
+            username: '',
             password: '',
         },
         validationSchema: LoginSchema,
         onSubmit: (values) => {
+            console.log(values);
             axios
-                .post('http://localhost:8000/api/login', values)
+                .post('http://localhost:8080/api/authenticate', values)
                 .then((response) => {
-                    console.log(response);
+                    console.log(response.data);
+                    localStorage.setItem('token', response.data.token);
+                    navigate('/');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -29,12 +34,12 @@ const Login = () => {
                 className='flex flex-col p-20 justify-center items-center space-y-10 border rounded'
             >
                 <Input
-                    id='email'
-                    type='email'
-                    placeholder='Email'
-                    value={formik.values.email}
+                    id='username'
+                    type='text'
+                    placeholder='Username'
+                    value={formik.values.username}
                     onChange={formik.handleChange}
-                    error={formik.errors.email}
+                    error={formik.errors.username}
                 />
                 <Input
                     id='password'

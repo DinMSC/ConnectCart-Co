@@ -3,11 +3,14 @@ import SignupSchema from '../helpers/formValidation';
 import axios from 'axios';
 import '../index.css';
 import Input from '../components/Input';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
-            name: '',
+            username: '',
             phone: '',
             email: '',
             password: '',
@@ -15,9 +18,11 @@ const Register = () => {
         validationSchema: SignupSchema,
         onSubmit: (values) => {
             axios
-                .post('http://localhost:8000/api/register', values) //put constants
+                .post('http://localhost:8080/api/auth/register', values) //put constants
                 .then((response) => {
-                    console.log(response);
+                    console.log(response.data);
+                    localStorage.setItem('token', response.data.token);
+                    navigate('/');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -32,7 +37,7 @@ const Register = () => {
                 className='flex flex-col p-20 justify-center items-center space-y-10 border rounded'
             >
                 <Input
-                    id='name'
+                    id='username'
                     type='text'
                     placeholder='Name'
                     value={formik.values.name}

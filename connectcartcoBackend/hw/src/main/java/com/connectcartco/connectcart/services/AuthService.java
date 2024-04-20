@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.connectcartco.connectcart.entity.UserEntity;
 import com.connectcartco.connectcart.repository.UserRepository;
@@ -44,6 +45,7 @@ public class AuthService {
                 .build();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     public AuthenticationResponse authenticateUser(AuthenticationRequest authenticationRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
