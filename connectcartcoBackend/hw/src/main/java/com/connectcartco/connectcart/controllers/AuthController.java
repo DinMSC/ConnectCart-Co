@@ -1,38 +1,39 @@
 package com.connectcartco.connectcart.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.connectcartco.connectcart.dto.User;
+import com.connectcartco.connectcart.dto.AuthenticationRequest;
+import com.connectcartco.connectcart.dto.AuthenticationResponse;
+import com.connectcartco.connectcart.dto.UserDto;
+import com.connectcartco.connectcart.entity.UserEntity;
 import com.connectcartco.connectcart.services.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
 
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-    return authService.registerUser(user);
-}
-    
+    public AuthenticationResponse registerUser(@RequestBody UserDto user) {
+
+        return authService.registerUser(user);
+    }
+
+    @PostMapping("/authenticate")
+    public AuthenticationResponse authenticateUser(@RequestBody AuthenticationRequest user) {
+
+        return authService.authenticateUser(user);
+    }
+
 
     @PostMapping("/login")
-   public String loginUser(@RequestBody User user) {
+    public String loginUser(@RequestBody UserEntity user) {
         return authService.loginUser(user);
     }
 
@@ -47,7 +48,7 @@ public class AuthController {
     // }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return authService.getUsers();
     }
 
@@ -62,12 +63,12 @@ public class AuthController {
     }
 
     @GetMapping("/user/{id}/update")
-    public String updateUserById(@PathVariable Long id, @RequestBody User user) {
+    public String updateUserById(@PathVariable Long id, @RequestBody UserEntity user) {
         return authService.updateUserById(id, user);
     }
 
     @GetMapping("/user/{id}/update/password")
-    public String updateUserPasswordById(@PathVariable Long id, @RequestBody User user) {
+    public String updateUserPasswordById(@PathVariable Long id, @RequestBody UserEntity user) {
         return authService.updateUserPasswordById(id, user);
     }
 

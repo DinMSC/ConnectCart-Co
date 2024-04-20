@@ -1,10 +1,9 @@
-package com.connectcartco.connectcart.dto;
+package com.connectcartco.connectcart.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Document("product")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductEntity {
 
     @Id
     private String id;

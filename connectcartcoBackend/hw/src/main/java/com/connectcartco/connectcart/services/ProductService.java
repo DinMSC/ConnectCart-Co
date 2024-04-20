@@ -1,7 +1,7 @@
 package com.connectcartco.connectcart.services;
 
-import com.connectcartco.connectcart.dto.Product;
-import com.connectcartco.connectcart.dto.User;
+import com.connectcartco.connectcart.entity.ProductEntity;
+import com.connectcartco.connectcart.entity.UserEntity;
 import com.connectcartco.connectcart.repository.ProductRepository;
 import com.connectcartco.connectcart.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +20,11 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public List<Product> getAllProducts(){
+    public List<ProductEntity> getAllProducts(){
         return productRepository.findAll();
     }
 
-    public Product getById(String id){
+    public ProductEntity getById(String id){
         return productRepository.findById(id).orElseThrow(
                 ()->new NoSuchElementException(format("Product with id: {0} does not exist!", id))
         );
@@ -34,12 +34,12 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Product createProduct(Product product){
+    public ProductEntity createProduct(ProductEntity product){
         return productRepository.save(product);
     }
 
-    public Product updateProduct(String id, Product product) {
-        Product existingProduct= productRepository.findById(id).orElseThrow(
+    public ProductEntity updateProduct(String id, ProductEntity product) {
+        ProductEntity existingProduct= productRepository.findById(id).orElseThrow(
                 ()->new NoSuchElementException(format("Product with id: {0} does not exist!", id))
         );
         existingProduct.setName(product.getName());
@@ -47,26 +47,26 @@ public class ProductService {
         return productRepository.save(existingProduct);
     }
 
-    public List<Product> addToCart(String id) {
-        Product product= productRepository.findById(id).orElseThrow(
+    public List<ProductEntity> addToCart(String id) {
+        ProductEntity product= productRepository.findById(id).orElseThrow(
                 ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-        User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+        UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
         user.getCart().add(product);
         userRepository.save(user);
         return user.getCart();
      }
 
-     public List<Product> removeFromCart(String id){
-         Product product= productRepository.findById(id).orElseThrow(
+     public List<ProductEntity> removeFromCart(String id){
+         ProductEntity product= productRepository.findById(id).orElseThrow(
                  ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-         User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+         UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
          user.getCart().remove(product);
          userRepository.save(user);
          return user.getCart();
      }
 
-     public List<Product> emptyCart(){
-         User user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+     public List<ProductEntity> emptyCart(){
+         UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
          user.setCart(new ArrayList<>());
          userRepository.save(user);
          return user.getCart();
