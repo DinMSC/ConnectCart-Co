@@ -5,6 +5,7 @@ import com.connectcartco.connectcart.dto.AuthenticationResponse;
 import com.connectcartco.connectcart.dto.UserDto;
 import com.connectcartco.connectcart.entity.UserEntity;
 import com.connectcartco.connectcart.services.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,33 +22,22 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public AuthenticationResponse registerUser(@RequestBody UserDto user) {
+    public AuthenticationResponse registerUser(@RequestBody UserDto user, HttpServletRequest request) {
 
-        return authService.registerUser(user);
+        return authService.registerUser(user, request);
     }
 
-    
+
     @PostMapping("/authenticate")
-    public AuthenticationResponse authenticateUser(@RequestParam String username, @RequestParam String password) {
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(username, password);
+    public AuthenticationResponse authenticateUser(@RequestBody AuthenticationRequest request) {
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest(request.getUsername(), request.getPassword());
         return authService.authenticateUser(authenticationRequest);
     }
-
-
-    // @PostMapping("/login")
-    // public String loginUser(@RequestBody UserEntity user) {
-    //     return authService.loginUser(user);
-    // }
 
     @GetMapping("/logout")
     public String logoutUser() {
         return authService.logoutUser();
     }
-
-    // @GetMapping("/user")
-    // public User getUser() {
-    //     return authService.getUser();
-    // }
 
     @GetMapping("/users")
     public List<UserEntity> getUsers() {
