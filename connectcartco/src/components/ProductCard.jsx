@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { CartContext } from '../context/Cart.Context';
+import { UserContext } from '../context/User.Context';
 
 const PorductCard = ({ name, price, description, image, id }) => {
-    const { addToCart } = useContext(CartContext);
+    const { addToCart } = useContext(UserContext);
 
     const [discount, setDiscount] = useState(
         Math.floor(Math.random() * 71) + 10

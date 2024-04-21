@@ -1,7 +1,12 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/User.Context';
+import { useContext } from 'react';
+import Dashboard from '../pages/Dashboard';
 
 const Menu = () => {
+    const { user } = useContext(UserContext);
+
     const navigate = useNavigate();
     function openMenu() {
         return () => {
@@ -19,9 +24,9 @@ const Menu = () => {
     return (
         <div className='container px-4 md:px-0 h-full mx-auto flex justify-between items-center'>
             <div>
-                <a href='/'>
+                <Link to='/'>
                     <img src='ConnectCartLogo.jpg' alt='VXI' className='h-12' />
-                </a>
+                </Link>
             </div>
 
             <ul
@@ -29,35 +34,69 @@ const Menu = () => {
                 className='hidden fixed top-0 right-0 px-10 py-16 bg-gray-800 z-50
                 md:relative md:flex md:p-0 md:bg-transparent md:flex-row md:space-x-6'
             >
-                <li className='md:hidden z-90 fixed top-4 right-6'>
-                    <a
-                        className='text-right text-white text-4xl'
-                        onClick={openMenu()}
-                    >
-                        &times;
-                    </a>
-                </li>
+                {user ? (
+                    user.role === 'ADMIN' ? (
+                        <>
+                            <li
+                                onClick={() => {
+                                    console.log('Admin:', user);
+                                }}
+                            >
+                                <a className='text-white opacity-70 hover:opacity-100 duration-300'>
+                                    Logout
+                                </a>
+                            </li>
+                            <li onClick={() => navigate('/createProduct')}>
+                                <a className='cursor-pointer text-white opacity-70 hover:opacity-100 duration-300'>
+                                    Create Product
+                                </a>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li onClick={() => navigate('/cart')}>
+                                <ShoppingCartIcon className='cursor-pointer' />
+                            </li>
+                            <li>
+                                <a
+                                    className='cursor-pointer text-white opacity-70 hover:opacity-100 duration-300'
+                                    onClick={() => navigate('/dashboard')}
+                                >
+                                    Dashboard
+                                </a>
+                            </li>
 
-                <li>
-                    <a
-                        className='text-white opacity-70 hover:opacity-100 duration-300'
-                        href='/login'
-                    >
-                        Login
-                    </a>
-                </li>
-                <li>
-                    <a
-                        className='text-white opacity-70 hover:opacity-100 duration-300'
-                        href='/register'
-                    >
-                        Sign up
-                    </a>
-                </li>
-
-                <li onClick={() => navigate('/cart')}>
-                    <ShoppingCartIcon className='cursor-pointer' />
-                </li>
+                            <li
+                                onClick={() => {
+                                    console.log('User:', user);
+                                }}
+                            >
+                                <a className='cursor-pointer text-white opacity-70 hover:opacity-100 duration-300'>
+                                    Logout
+                                </a>
+                            </li>
+                        </>
+                    )
+                ) : (
+                    <>
+                        <li>
+                            <a
+                                className='text-white opacity-70 hover:opacity-100 duration-300'
+                                href='/login'
+                            >
+                                Login
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                className='text-white opacity-70 hover:opacity-100 duration-300'
+                                href='/register'
+                            >
+                                Sign up
+                            </a>
+                        </li>
+                    </>
+                )}
             </ul>
 
             <div className='flex items-center md:hidden'>

@@ -1,7 +1,7 @@
-import { CartContext } from '../context/Cart.Context';
+import { UserContext } from '../context/User.Context';
 import { useContext } from 'react';
 const CartProduct = ({ name, price, description, image, id }) => {
-    const { removeFromCart } = useContext(CartContext);
+    const { removeFromCart } = useContext(UserContext);
 
     const deleteProduct = () => {
         removeFromCart({ id });

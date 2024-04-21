@@ -2,31 +2,52 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
 import { ProductProvider } from './context/ProuductContext';
-import CartProvider from './context/Cart.Context';
+import UserProvider from './context/User.Context';
 import CreateProduct from './pages/CreateProduct';
 import Cart from './pages/Cart';
-import RegisterAdmin from "./pages/RegisterAdmin";
+import RegisterAdmin from './pages/RegisterAdmin';
+import PrivateRoute from './helpers/PrivateRoutes';
+import Home from './pages/Home';
+import LoginPage from './pages/LoginPage';
 
 function App() {
     return (
         <Router>
             <div className='App'>
-                <header className='w-full h-16 bg-blue-300 drop-shadow-lg'>
-                    <Menu />
-                </header>
                 <ProductProvider>
-                    <CartProvider>
+                    <UserProvider>
+                        <header className='w-full h-16 bg-blue-300 drop-shadow-lg'>
+                            <Menu />
+                        </header>
                         <Routes>
-                            <Route path='/' element={<Dashboard />} />
+                            <Route
+                                path='/dashboard'
+                                element={
+                                    <PrivateRoute>
+                                        <Dashboard />
+                                    </PrivateRoute>
+                                }
+                            />
                             <Route path='/cart' element={<Cart />} />
                             <Route path='/register' element={<Register />} />
-                            <Route path='/register/admin' element={<RegisterAdmin />} />
-                            <Route path='/login' element={<Login />} />
+                            <Route path='/' element={<Home />} />
+                            <Route
+                                path='/register/admin'
+                                element={
+                                    <PrivateRoute isAdminRoute>
+                                        <RegisterAdmin />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route path='/login' element={<LoginPage />} />
                             <Route
                                 path='/createProduct'
-                                element={<CreateProduct />}
+                                element={
+                                    <PrivateRoute isAdminRoute>
+                                        <CreateProduct />
+                                    </PrivateRoute>
+                                }
                             />
                             <Route
                                 path='*'
@@ -37,7 +58,7 @@ function App() {
                                 }
                             />
                         </Routes>
-                    </CartProvider>
+                    </UserProvider>
                 </ProductProvider>
             </div>
         </Router>
