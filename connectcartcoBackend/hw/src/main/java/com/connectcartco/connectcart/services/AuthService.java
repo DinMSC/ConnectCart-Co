@@ -1,22 +1,23 @@
 package com.connectcartco.connectcart.services;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.connectcartco.connectcart.JWT.JwtService;
-import com.connectcartco.connectcart.dto.AuthenticationResponse;
 import com.connectcartco.connectcart.dto.AuthenticationRequest;
-import com.connectcartco.connectcart.entity.Role;
+import com.connectcartco.connectcart.dto.AuthenticationResponse;
 import com.connectcartco.connectcart.dto.UserDto;
+import com.connectcartco.connectcart.entity.Role;
+import com.connectcartco.connectcart.entity.UserEntity;
+import com.connectcartco.connectcart.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.connectcartco.connectcart.entity.UserEntity;
-import com.connectcartco.connectcart.repository.UserRepository;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +28,18 @@ public class AuthService {
      private final JwtService jwtService;
      private final AuthenticationManager authenticationManager;
     
-    public AuthenticationResponse registerUser(UserDto user) {
+    public AuthenticationResponse registerUser(UserDto user, HttpServletRequest request) {
+        String requestRoute = request.getHeader("Route-Header");
+        Role role = requestRoute.contains("/admin") ? Role.ADMIN : Role.USER;
+
+
         UserEntity userEntity= UserEntity
                 .builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .password(passwordEncoder.encode(user.getPassword()))
-                .role(Role.USER)
+                .role(role)
                 .created(LocalDateTime.now())
                 .build();
         userRepository.save(userEntity);
@@ -59,25 +64,14 @@ public class AuthService {
                 .build();
     }
 
-    public String loginUser(UserEntity user) {
-        return "User logged in";
-    }
-
     public String logoutUser() {
         return "User logged out";
     }
-
-    // public User getUser() {
-    //     return new User();
-    // }
 
     public List<UserEntity> getUsers() {
         return new ArrayList<UserEntity>();
     }
 
-    // public User getUserById(Long id) {
-    //     return "USER";
-    // }
 
     public String deleteUserById(Long id) {
         return "User deleted";

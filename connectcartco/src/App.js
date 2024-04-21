@@ -7,6 +7,7 @@ import { ProductProvider } from './context/ProuductContext';
 import CartProvider from './context/Cart.Context';
 import CreateProduct from './pages/CreateProduct';
 import Cart from './pages/Cart';
+import RegisterAdmin from "./pages/RegisterAdmin";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                             <Route path='/' element={<Dashboard />} />
                             <Route path='/cart' element={<Cart />} />
                             <Route path='/register' element={<Register />} />
+                            <Route path='/register/admin' element={<RegisterAdmin />} />
                             <Route path='/login' element={<Login />} />
                             <Route
                                 path='/createProduct'
