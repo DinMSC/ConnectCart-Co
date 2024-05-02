@@ -1,36 +1,31 @@
 import { useFormik } from 'formik';
-import LoginSchema from '../helpers/formValidation';
+import SignupSchema from '../helpers/formValidation';
 import axios from 'axios';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/User.Context';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
-    const { setUser } = useContext(UserContext);
+const Register = () => {
     const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             username: '',
+            phone: '',
+            email: '',
             password: '',
         },
-        validationSchema: LoginSchema,
+        validationSchema: SignupSchema,
         onSubmit: (values) => {
-            const data = {
-                username: values.username,
-                password: values.password,
-            };
             axios
-                .post('http://localhost:8080/api/auth/authenticate', data)
+                .post('http://localhost:8080/api/auth/register', values, {
+                    headers: {
+                        'Route-Header': 'http://localhost:3000/register/user',
+                    },
+                })
                 .then((response) => {
                     console.log(response.data);
                     localStorage.setItem('token', response.data.token);
-                    const user = {
-                        username: response.data.username,
-                        role: response.data.role,
-                    };
-                    setUser(user);
                     navigate('/');
                 })
                 .catch((error) => {
@@ -47,10 +42,9 @@ const Login = () => {
             <div>
                 <div className='flex flex-col justify-center'>
                     <div className='text-center block pb-12 flex flex-col gap-6'>
-                        <h1 className='text-4xl'>Welcome back!</h1>
+                        <h1 className='text-4xl'>Welcome!</h1>
                         <p className='max-w-[70%] mx-auto text-sm'>
-                            Enter your email adress and password to access your
-                            account
+                            Enter your details to create your account
                         </p>
                     </div>
                     <div className='flex justify-center items-center'>
@@ -68,6 +62,22 @@ const Login = () => {
                                     error={formik.errors.username}
                                 />
                                 <Input
+                                    id='phone'
+                                    type='number'
+                                    placeholder='Phone'
+                                    value={formik.values.phone}
+                                    onChange={formik.handleChange}
+                                    error={formik.errors.phone}
+                                />
+                                <Input
+                                    id='email'
+                                    type='email'
+                                    placeholder='Email'
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    error={formik.errors.email}
+                                />
+                                <Input
                                     id='password'
                                     type='password'
                                     placeholder='Password'
@@ -77,9 +87,6 @@ const Login = () => {
                                 />
                             </div>
                             <div className='space-y-6'>
-                                <div className='flex items-center justify-between w-full pt-2'>
-                                    <p>Forgot password ?</p>
-                                </div>
                                 <button
                                     type='submit'
                                     className={`w-96 text-white font-bold py-2 px-4 rounded ${
@@ -101,7 +108,7 @@ const Login = () => {
                                         )
                                     }
                                 >
-                                    Login
+                                    Register
                                 </button>
                             </div>
                         </form>
@@ -110,9 +117,9 @@ const Login = () => {
             </div>
             <div className='text-sm flex flex-col items-center space-y-1'>
                 <div className='flex flex-row justify-center space-x-1'>
-                    <span>Don't have an account yet?</span>
-                    <Link to='/register' className='text-[#07779E]'>
-                        Sign Up
+                    <span>Already have an account?</span>
+                    <Link to='/login' className='text-[#07779E]'>
+                        Login
                     </Link>
                 </div>
                 <p>info@connectcart.co</p>
@@ -121,4 +128,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

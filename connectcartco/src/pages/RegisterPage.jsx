@@ -1,6 +1,6 @@
-import Login from '../components/Login';
+import Register from '../components/Register';
 
-const LoginPage = () => {
+const RegisterPage = () => {
     return (
         <div className='container mx-auto flex justify-center items-center h-screen'>
             <div className='flex flex-col justify-center p-16'>
@@ -28,11 +28,11 @@ const LoginPage = () => {
                             shop smarter together!
                         </p>
                     </div>
-                    <Login />
+                    <Register />
                 </div>
             </div>
         </div>
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

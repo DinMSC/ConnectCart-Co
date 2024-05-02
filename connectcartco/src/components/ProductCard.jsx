@@ -23,7 +23,7 @@ const PorductCard = ({ name, price, description, image, id }) => {
         });
     };
     return (
-        <div className='relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'>
+        <div className='relative m-10 flex max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'>
             <a
                 className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'
                 href='#'
