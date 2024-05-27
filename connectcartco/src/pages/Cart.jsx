@@ -6,8 +6,7 @@ const Cart = () => {
     const { cart } = useContext(UserContext);
 
     return (
-        <div>
-            <h2>Your Cart</h2>
+        <div className='flex flex-row justify-center'>
             {cart.map((product, index) => (
                 <CartProduct
                     key={index}

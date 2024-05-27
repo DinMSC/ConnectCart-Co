@@ -69,14 +69,6 @@ const Menu = () => {
                             <li onClick={() => navigate('/cart')}>
                                 <ShoppingCartIcon className='cursor-pointer' />
                             </li>
-                            <li>
-                                <div
-                                    className='cursor-pointer text-white opacity-70 hover:opacity-100 duration-300'
-                                    onClick={() => navigate('/dashboard')}
-                                >
-                                    Dashboard
-                                </div>
-                            </li>
 
                             <li
                                 onClick={() => {
@@ -96,8 +88,8 @@ const Menu = () => {
                     <>
                         <li>
                             <div
-                                className='text-white opacity-70 hover:opacity-100 duration-300'
-                                href='/login'
+                                className='text-white opacity-70 hover:opacity-100 duration-300 cursor-pointer'
+                                onClick={() => navigate('/login')}
                             >
                                 Login
                             </div>

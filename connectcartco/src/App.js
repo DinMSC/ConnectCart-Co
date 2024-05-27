@@ -43,10 +43,10 @@ function RoutesWithMenu() {
                 )}
             <Routes>
                 <Route
-                    path='/dashboard'
+                    path='/'
                     element={
                         <PrivateRoute>
-                            <Dashboard />
+                            <Home />
                         </PrivateRoute>
                     }
                 />
