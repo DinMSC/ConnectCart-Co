@@ -1,5 +1,5 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/User.Context';
 import { useContext } from 'react';
 import { CiShoppingCart } from 'react-icons/ci';
@@ -96,8 +96,8 @@ const Menu = () => {
                         </li>
                         <li>
                             <div
-                                className='text-white opacity-70 hover:opacity-100 duration-300'
-                                href='/register'
+                                className='text-white opacity-70 hover:opacity-100 duration-300 cursor-pointer'
+                                onClick={() => navigate('/register')}
                             >
                                 Sign up
                             </div>

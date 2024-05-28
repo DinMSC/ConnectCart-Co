@@ -2,6 +2,8 @@ import { useContext, useEffect } from 'react';
 import { ProductContext } from '../context/ProuductContext';
 import ProductCard from '../components/ProductCard';
 import { UserContext } from '../context/User.Context';
+import Hero from '../components/Hero';
+import ConnectCartFooter from '../components/Footer';
 
 const Home = () => {
     const { user } = useContext(UserContext);
@@ -13,10 +15,10 @@ const Home = () => {
     }, []);
 
     return (
-        <div className='flex flex-col justify-center p-4'>
-            <h1>HI {user.username}</h1>
+        <div className='flex flex-col justify-center p-4 '>
+            <Hero />
 
-            <div className='flex flex-row justify-center items-center text-3xl'>
+            <div className='flex flex-row justify-center items-center text-3xl pt-6'>
                 Latest Products
             </div>
 
@@ -31,6 +33,7 @@ const Home = () => {
                     />
                 ))}
             </div>
+            <ConnectCartFooter />
         </div>
     );
 };

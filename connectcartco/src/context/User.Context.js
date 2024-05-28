@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 
 export const UserContext = createContext();
 
@@ -10,14 +10,26 @@ export const UserProvider = ({ children }) => {
         setCart([...cart, product]);
     };
 
-    const removeFromCart = (product) => {
-        const newCart = cart.filter((item) => item.id !== product.id);
+    const removeFromCart = (productToRemove) => {
+        let productFound = false;
+        const newCart = cart.filter((product) => {
+            if (product.id === productToRemove.id && !productFound) {
+                productFound = true;
+                return false;
+            } else {
+                return true;
+            }
+        });
         setCart(newCart);
     };
 
+    const total = useMemo(() => {
+        return cart.reduce((total, product) => total + product.price, 0);
+    }, [cart]);
+
     return (
         <UserContext.Provider
-            value={{ user, setUser, cart, addToCart, removeFromCart }}
+            value={{ user, setUser, cart, addToCart, removeFromCart, total }}
         >
             {children}
         </UserContext.Provider>
