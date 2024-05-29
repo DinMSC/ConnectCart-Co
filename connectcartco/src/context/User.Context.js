@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo, useEffect } from 'react';
 
 export const UserContext = createContext();
 
@@ -9,6 +9,13 @@ export const UserProvider = ({ children }) => {
     const addToCart = (product) => {
         setCart([...cart, product]);
     };
+
+    useEffect(() => {
+        const userFromStorage = localStorage.getItem('user');
+        if (userFromStorage) {
+            setUser(JSON.parse(userFromStorage));
+        }
+    }, []);
 
     const removeFromCart = (productToRemove) => {
         let productFound = false;

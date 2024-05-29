@@ -24,12 +24,12 @@ const Login = () => {
             axios
                 .post('http://localhost:8080/api/auth/authenticate', data)
                 .then((response) => {
-                    console.log(response.data);
-                    localStorage.setItem('token', response.data.token);
                     const user = {
                         username: response.data.username,
                         role: response.data.role,
                     };
+                    localStorage.setItem('user', JSON.stringify(user));
+                    localStorage.setItem('token', response.data.token); // Store the token
                     setUser(user);
                     navigate('/');
                 })

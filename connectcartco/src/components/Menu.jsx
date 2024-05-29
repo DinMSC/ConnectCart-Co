@@ -8,8 +8,9 @@ const Menu = () => {
     const { user } = useContext(UserContext);
 
     const handleLogout = () => {
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
-        window.location.reload();
+        navigate('/login');
     };
 
     const navigate = useNavigate();
