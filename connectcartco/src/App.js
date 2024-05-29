@@ -7,7 +7,6 @@ import {
 import Menu from './components/Menu';
 import { ProductProvider } from './context/ProuductContext';
 import UserProvider from './context/User.Context';
-import { Dashboard } from '@mui/icons-material';
 import PrivateRoute from './helpers/PrivateRoutes';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -43,16 +42,22 @@ function RoutesWithMenu() {
                 )}
             <Routes>
                 <Route
-                    path='/dashboard'
+                    path='/'
                     element={
                         <PrivateRoute>
-                            <Dashboard />
+                            <Home />
                         </PrivateRoute>
                     }
                 />
-                <Route path='/cart' element={<Cart />} />
+                <Route
+                    path='/cart'
+                    element={
+                        <PrivateRoute>
+                            <Cart />
+                        </PrivateRoute>
+                    }
+                />
                 <Route path='/register' element={<RegisterPage />} />
-                <Route path='/' element={<Home />} />
                 <Route
                     path='/register/admin'
                     element={

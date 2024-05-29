@@ -28,10 +28,16 @@ const PorductCard = ({ name, price, description, image, id }) => {
                 className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'
                 href='#'
             >
-                <img className='object-cover' src={image} alt='product image' />
-                <span className='absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white'>
-                    {discount}% OFF
-                </span>
+                <div className='flex flex-col justify-center'>
+                    <img
+                        className='object-fit w-full'
+                        src={image}
+                        alt='product image'
+                    />
+                    <span className='absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white'>
+                        {discount}% OFF
+                    </span>
+                </div>
             </a>
             <div className='mt-4 px-5 pb-5'>
                 <a href='#'>

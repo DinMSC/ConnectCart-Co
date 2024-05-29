@@ -1,14 +1,14 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/User.Context';
 
 const PrivateRoute = ({ children, isAdminRoute = false }) => {
     const { user } = useContext(UserContext);
-    const navigate = useNavigate();
+    const location = useLocation();
+    const token = localStorage.getItem('token');
 
-    if (!user) {
-        navigate('/login');
-        return null;
+    if (!token) {
+        return <Navigate to='/login' replace state={{ from: location }} />;
     }
 
     console.log('User:', user); // Check the user object
@@ -16,8 +16,7 @@ const PrivateRoute = ({ children, isAdminRoute = false }) => {
     console.log('Is Admin Route:', isAdminRoute); // Check if the route should be an admin route
 
     if (isAdminRoute && user.role !== 'ADMIN') {
-        navigate('/login');
-        return null;
+        return <Navigate to='/login' replace state={{ from: location }} />;
     }
 
     return children;

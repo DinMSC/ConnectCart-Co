@@ -1,5 +1,5 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/User.Context';
 import { useContext } from 'react';
 import { CiShoppingCart } from 'react-icons/ci';
@@ -8,8 +8,9 @@ const Menu = () => {
     const { user } = useContext(UserContext);
 
     const handleLogout = () => {
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
-        window.location.reload();
+        navigate('/login');
     };
 
     const navigate = useNavigate();
@@ -69,14 +70,6 @@ const Menu = () => {
                             <li onClick={() => navigate('/cart')}>
                                 <ShoppingCartIcon className='cursor-pointer' />
                             </li>
-                            <li>
-                                <div
-                                    className='cursor-pointer text-white opacity-70 hover:opacity-100 duration-300'
-                                    onClick={() => navigate('/dashboard')}
-                                >
-                                    Dashboard
-                                </div>
-                            </li>
 
                             <li
                                 onClick={() => {
@@ -96,16 +89,16 @@ const Menu = () => {
                     <>
                         <li>
                             <div
-                                className='text-white opacity-70 hover:opacity-100 duration-300'
-                                href='/login'
+                                className='text-white opacity-70 hover:opacity-100 duration-300 cursor-pointer'
+                                onClick={() => navigate('/login')}
                             >
                                 Login
                             </div>
                         </li>
                         <li>
                             <div
-                                className='text-white opacity-70 hover:opacity-100 duration-300'
-                                href='/register'
+                                className='text-white opacity-70 hover:opacity-100 duration-300 cursor-pointer'
+                                onClick={() => navigate('/register')}
                             >
                                 Sign up
                             </div>

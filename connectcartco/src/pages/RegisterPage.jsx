@@ -18,7 +18,7 @@ const RegisterPage = () => {
                             Welcome to Connect Cart Co.
                         </p>
                         <p className='text-white w-[190px] text-2xs'>
-                            At ConnectCart Co., we bring you a seamless online
+                            At ConnectCart Co. we bring you a seamless online
                             marketplace where your preferences meet endless
                             possibilities. Whether you're searching for the
                             latest gadgets, fashion essentials, or unique gifts,
