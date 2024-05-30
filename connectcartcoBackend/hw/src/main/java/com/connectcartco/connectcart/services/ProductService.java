@@ -47,26 +47,26 @@ public class ProductService {
         return productRepository.save(existingProduct);
     }
 
-    public List<ProductEntity> addToCart(String id) {
-        ProductEntity product= productRepository.findById(id).orElseThrow(
-                ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-        UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+    public List<ProductEntity> addToCart(String productId, String userId) {
+        ProductEntity product= productRepository.findById(productId).orElseThrow(
+                ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", productId)));
+        UserEntity user= userRepository.findById(userId).orElseThrow();
         user.getCart().add(product);
         userRepository.save(user);
         return user.getCart();
      }
 
-     public List<ProductEntity> removeFromCart(String id){
-         ProductEntity product= productRepository.findById(id).orElseThrow(
-                 ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", id)));
-         UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+     public List<ProductEntity> removeFromCart(String productId, String userId){
+         ProductEntity product= productRepository.findById(productId).orElseThrow(
+                 ()-> new NoSuchElementException(format("Product with id: {0} does not exist! ", productId)));
+         UserEntity user= userRepository.findById(userId).orElseThrow();
          user.getCart().remove(product);
          userRepository.save(user);
          return user.getCart();
      }
 
-     public List<ProductEntity> emptyCart(){
-         UserEntity user= userRepository.findById("6609d8b4256c0715c444ae2d").orElseThrow();
+     public List<ProductEntity> emptyCart(String userId){
+         UserEntity user= userRepository.findById(userId).orElseThrow();
          user.setCart(new ArrayList<>());
          userRepository.save(user);
          return user.getCart();

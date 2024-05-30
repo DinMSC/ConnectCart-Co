@@ -1,25 +1,38 @@
 import { useFormik } from 'formik';
-import LoginSchema from '../helpers/formValidation';
+import SignupSchema from '../helpers/formValidation';
 import axios from 'axios';
+import '../index.css';
 import Input from '../components/Input';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const RegisterAdmin = () => {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
+            username: '',
+            phone: '',
             email: '',
             password: '',
         },
-        validationSchema: LoginSchema,
+        validationSchema: SignupSchema,
         onSubmit: (values) => {
             axios
-                .post('http://localhost:8000/api/login', values)
+                .post('http://localhost:8080/api/auth/register', values, {
+                    headers: {
+                        'Route-Header': 'http://localhost:3000/register/admin'
+                    }
+                })
                 .then((response) => {
-                    console.log(response);
+                    console.log(response.data);
+                    localStorage.setItem('token', response.data.token);
+                    navigate('/');
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
+
     });
 
     return (
@@ -28,6 +41,22 @@ const Login = () => {
                 onSubmit={formik.handleSubmit}
                 className='flex flex-col p-20 justify-center items-center space-y-10 border rounded'
             >
+                <Input
+                    id='username'
+                    type='text'
+                    placeholder='Name'
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    error={formik.errors.name}
+                />
+                <Input
+                    id='phone'
+                    type='number'
+                    placeholder='Phone'
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    error={formik.errors.phone}
+                />
                 <Input
                     id='email'
                     type='email'
@@ -57,17 +86,11 @@ const Login = () => {
                         Object.values(formik.errors).some(Boolean)
                     }
                 >
-                    Login
+                    Register
                 </button>
-                <div className='text-sm'>
-                    Forgot Password?{' '}
-                    <a className='text-blue-500' href='/forgotpassword'>
-                        Click here!
-                    </a>
-                </div>
             </form>
         </div>
     );
 };
 
-export default Login;
+export default RegisterAdmin;
