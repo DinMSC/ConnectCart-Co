@@ -12,7 +12,7 @@ export const ProductProvider = ({ children }) => {
                 'http://localhost:8080/products',
                 product
             );
-            console.log(response);
+
             setProducts((prevProducts) => [...prevProducts, product]);
         } catch (error) {
             console.error('Failed to create product:', error);
@@ -22,6 +22,20 @@ export const ProductProvider = ({ children }) => {
     useEffect(() => {
         fetchProducts();
     }, []);
+
+    const deleteProduct = async (id) => {
+        try {
+            const response = await axios.delete(
+                `http://localhost:8080/products/product/${id}`
+            );
+
+            setProducts((prevProducts) =>
+                prevProducts.filter((product) => product.id !== id)
+            );
+        } catch (error) {
+            console.error('Failed to delete product:', error);
+        }
+    };
 
     const fetchProducts = async () => {
         try {
@@ -34,7 +48,7 @@ export const ProductProvider = ({ children }) => {
 
     return (
         <ProductContext.Provider
-            value={{ products, createProduct, fetchProducts }}
+            value={{ products, createProduct, fetchProducts, deleteProduct }}
         >
             {children}
         </ProductContext.Provider>

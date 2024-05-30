@@ -11,10 +11,6 @@ const PrivateRoute = ({ children, isAdminRoute = false }) => {
         return <Navigate to='/login' replace state={{ from: location }} />;
     }
 
-    console.log('User:', user); // Check the user object
-    console.log('Role:', user.role); // Check the user role
-    console.log('Is Admin Route:', isAdminRoute); // Check if the route should be an admin route
-
     if (isAdminRoute && user.role !== 'ADMIN') {
         return <Navigate to='/login' replace state={{ from: location }} />;
     }

@@ -24,7 +24,6 @@ const Register = () => {
                     },
                 })
                 .then((response) => {
-                    console.log(response.data);
                     localStorage.setItem('token', response.data.token);
                     navigate('/');
                 })
