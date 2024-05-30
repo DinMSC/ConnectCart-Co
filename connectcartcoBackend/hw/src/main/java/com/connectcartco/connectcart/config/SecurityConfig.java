@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**", "/products/**")
+                .requestMatchers("/api/auth/**", "/products/**", "/api/chat/searchChatGPT")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
